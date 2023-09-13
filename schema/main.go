@@ -6,11 +6,15 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/santhosh-tekuri/jsonschema/v5"
 )
 
 func main() {
 	var jsonDataFilename string
-	var schemaFilename string
+	var jsonSchemaFilename string
+	var compiler *jsonschema.Compiler
+	var schema *jsonschema.Schema
 	var jsonData []byte
 	var jsonFile *os.File
 	var err error
@@ -18,8 +22,13 @@ func main() {
 
 	// Take in cli arg for file containing JSON data
 	flag.StringVar(&jsonDataFilename, "j", "", "File containing JSON data")
-	flag.StringVar(&schemaFilename, "s", "", "File containing JSON schema")
+	flag.StringVar(&jsonSchemaFilename, "s", "", "File containing JSON schema")
 	flag.Parse()
+
+	// Create JSON Schema compiler
+	compiler = jsonschema.NewCompiler()
+	// Compile the JSON schema
+	schema, err = compiler.Compile(jsonSchemaFilename)
 
 	// Read file contents
 	jsonFile, err = os.Open(jsonDataFilename) // For read access.

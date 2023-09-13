@@ -1,0 +1,9 @@
+{
+  "product": {
+    "name": "Smartphone Model X",
+    "brand": "TechCo",
+    "price": 599.99,
+    "features": ["5G connectivity", "128GB storage", "6.2 inch display"],
+    "availability": true
+  }
+}

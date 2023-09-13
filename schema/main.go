@@ -3,14 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
 func main() {
 	var jsonDataFilename string
-	var contents []byte
-	var reader *Reader
-	var file *os.File
+	var jsonData []byte
+	var jsonFile *os.File
 	var err error
 
 	// Take in cli arg for file containing JSON data
@@ -18,13 +18,17 @@ func main() {
 	flag.Parse()
 
 	// Read file and unmarshal contents into var type any
-	file, err = os.Open(jsonDataFilename) // For read access.
+	jsonFile, err = os.Open(jsonDataFilename) // For read access.
 	if err != nil {
 		fmt.Println("error with opening file")
 	}
-	// contents =
+	jsonData, err = os.ReadFile(jsonDataFilename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("read %q", jsonData)
 
-	if err = file.Close(); err != nil {
+	if err = jsonFile.Close(); err != nil {
 		fmt.Println("error with closing file")
 	}
 

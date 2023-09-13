@@ -8,7 +8,8 @@ import (
 
 func main() {
 	var filename string
-	var contents any
+	var contents []byte
+	var reader *Reader
 	var file *os.File
 	var err error
 
@@ -21,6 +22,7 @@ func main() {
 	if err != nil {
 		fmt.Println("error with opening file")
 	}
+	contents = 
 
 	if err = file.Close(); err != nil {
 		fmt.Println("error with closing file")

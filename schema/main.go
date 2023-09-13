@@ -10,13 +10,15 @@ import (
 
 func main() {
 	var jsonDataFilename string
+	var schemaFilename string
 	var jsonData []byte
 	var jsonFile *os.File
 	var err error
-	var contents any
+	var data any
 
 	// Take in cli arg for file containing JSON data
-	flag.StringVar(&jsonDataFilename, "f", "", "File containing JSON data")
+	flag.StringVar(&jsonDataFilename, "j", "", "File containing JSON data")
+	flag.StringVar(&schemaFilename, "s", "", "File containing JSON schema")
 	flag.Parse()
 
 	// Read file contents
@@ -30,8 +32,10 @@ func main() {
 	}
 	fmt.Printf("read %q", jsonData)
 
-	// Unmarshal contents, apply visitor
-	contents = json.Unmarshal(jsonData, &contents)
+	// Unmarshal json data, apply visitor
+	data = json.Unmarshal(jsonData, &data)
+
+	// Call Accept(data, visitor) with visitor object
 
 	// Close file
 	if err = jsonFile.Close(); err != nil {
